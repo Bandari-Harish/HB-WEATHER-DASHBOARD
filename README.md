@@ -5,27 +5,22 @@ A modern, responsive weather dashboard built with **HTML5, SCSS, Bootstrap 5, an
 > Designed with a clean UI, dark/light theme support, automatic location detection, and responsive layouts for desktop and mobile devices.
 
 ---
-
 ## 📸 Preview
 
 ### 🌙 Dark Mode
 
-> Add your screenshot here
-
-[![Dark Mode](assets/screenshots/dark-mode.png)](https://github.com/Bandari-Harish/HB-WEATHER-DASHBOARD/blob/main/assets/images/dark-mode.png)
+![Dark Mode](assets/images/dark-mode.png)
 
 ### ☀️ Light Mode
 
-> Add your screenshot here
-
-[![Light Mode](assets/screenshots/light-mode.png)](https://github.com/Bandari-Harish/HB-WEATHER-DASHBOARD/blob/main/assets/images/light-mode.png)
-
+![Light Mode](assets/images/light-mode.png)
 ---
 
 ## 🚀 Live Demo
 
-🔗 **Demo Link:** [https://bandari-harish.github.io/HB-WEATHER-DASHBOARD/](https://bandari-harish.github.io/HB-WEATHER-DASHBOARD/)
-
+<a href="https://bandari-harish.github.io/HB-WEATHER-DASHBOARD/" target="_blank">
+    🌐 Live Demo
+</a>
 ---
 
 ## ✨ Features
@@ -114,17 +109,18 @@ https://api.openweathermap.org
 
 Documentation
 
-https://openweathermap.org/api/one-call-4?collection=one_call_api
-
+<a href="https://openweathermap.org/api/one-call-4?collection=one_call_api">
+    OpenWeather API Documentation
+</a>
 ---
 
 ### 📍 IPInfo API
 
 Used for automatically detecting the user's current city.
 
-```
-https://ipinfo.io/json
-```
+<a href="https://ipinfo.io/">
+    IPInfo
+</a>
 
 This allows the application to load weather information immediately without requiring the user to search manually.
 
@@ -272,8 +268,9 @@ This project is licensed under the MIT License.
 
 GitHub
 
-https://github.com/Bandari-Harish
-
+<a href="https://github.com/Bandari-Harish/HB-WEATHER-DASHBOARD">
+    GitHub Repository
+</a>
 ---
 
 ## ⭐ Support
