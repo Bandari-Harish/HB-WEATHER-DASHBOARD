@@ -12,13 +12,13 @@ A modern, responsive weather dashboard built with **HTML5, SCSS, Bootstrap 5, an
 
 > Add your screenshot here
 
-![Dark Mode](assets/screenshots/dark-mode.png)
+[![Dark Mode](assets/screenshots/dark-mode.png)](https://github.com/Bandari-Harish/HB-WEATHER-DASHBOARD/blob/main/assets/images/dark-mode.png)
 
 ### ☀️ Light Mode
 
 > Add your screenshot here
 
-![Light Mode](assets/screenshots/light-mode.png)
+[![Light Mode](assets/screenshots/light-mode.png)](https://github.com/Bandari-Harish/HB-WEATHER-DASHBOARD/blob/main/assets/images/light-mode.png)
 
 ---
 
