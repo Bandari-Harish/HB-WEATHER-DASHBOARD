@@ -21,6 +21,9 @@ A modern, responsive weather dashboard built with **HTML5, SCSS, Bootstrap 5, an
 <a href="https://bandari-harish.github.io/HB-WEATHER-DASHBOARD/" target="_blank">
     🌐 Live Demo
 </a>
+
+
+
 ---
 
 ## ✨ Features
