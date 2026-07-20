@@ -24,7 +24,7 @@ A modern, responsive weather dashboard built with **HTML5, SCSS, Bootstrap 5, an
 
 ## 🚀 Live Demo
 
-🔗 **GitHub Pages:** https://your-github-pages-link
+🔗 **Demo Link:** https://bandari-harish.github.io/HB-WEATHER-DASHBOARD/
 
 ---
 
@@ -114,7 +114,7 @@ https://api.openweathermap.org
 
 Documentation
 
-https://openweathermap.org/api
+https://openweathermap.org/api/one-call-4?collection=one_call_api
 
 ---
 
