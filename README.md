@@ -278,8 +278,11 @@ git push origin feature-name
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.
 
+See the [LICENSE](LICENSE) file for more information.
+
+> **Note:** This project uses third-party services, including the **OpenWeather API** and **IPInfo API**, which are governed by their own terms of service and licensing. These external services are **not covered** by this project's MIT License.
 ---
 
 ## 👨‍💻 Author
