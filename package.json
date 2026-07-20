@@ -1,0 +1,18 @@
+{
+  "name": "hb_weather_dahboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass assets/scss/index.scss assets/css/index.css --no-source-map",
+    "sass:watch": "sass assets/scss/index.scss assets/css/index.css --watch --no-source-map"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "sass": "^1.101.0"
+  }
+}

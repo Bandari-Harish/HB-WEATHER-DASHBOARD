@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" data-theme-mode="dark">
+
+<head>
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme-mode', theme);
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>HB Weather Dashboard</title>
+  <meta name="description" content="HB — a live weather dashboard powered by Open-Meteo." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Weather Dashboard" />
+  <meta property="og:description" content="HB — a live weather dashboard powered by Open-Meteo." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Weather Dashboard" />
+  <meta name="twitter:description" content="HB — a live weather dashboard powered by Open-Meteo." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+
+<body>
+  <input type="checkbox" id="darkToggle" class="visually-hidden-toggle" />
+  <input type="checkbox" id="offcanvasToggle" class="visually-hidden-toggle" />
+  <input type="checkbox" id="settingsToggle" class="visually-hidden-toggle" />
+  <input type="checkbox" id="unitToggle" class="visually-hidden-toggle" />
+  <input type="checkbox" id="timeToggle" class="visually-hidden-toggle" checked />
+
+  <aside class="offcanvas offcanvas-end" tabindex="-1" aria-label="Settings Menu">
+    <header class="offcanvas-header border-bottom">
+      <h2 class="offcanvas-title h5 fw-semibold mb-0">Settings</h2>
+      <label for="offcanvasToggle" class="btn-close" aria-label="Close"></label>
+    </header>
+    <div class="offcanvas-body">
+      <p class="fw-semibold small mb-3 eyebrow">Settings</p>
+      <div class="mb-3">
+        <label class="form-label small fw-semibold mb-2">Temperature Unit</label>
+        <div class="d-flex align-items-center gap-2">
+          <span class="small unit-label-c">°C</span>
+          <label class="css-switch mb-0" for="unitToggle"><span class="css-switch-track"></span></label>
+          <span class="small unit-label-f">°F</span>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label small fw-semibold mb-2">Time Format</label>
+        <div class="d-flex align-items-center gap-2">
+          <span class="small time-label-12">12h</span>
+          <label class="css-switch mb-0" for="timeToggle"><span class="css-switch-track"></span></label>
+          <span class="small time-label-24">24h</span>
+        </div>
+      </div>
+      <div>
+        <label class="form-label small fw-semibold mb-2">Dark Mode</label>
+        <label class="css-switch mb-0" for="darkToggle"><span class="css-switch-track"></span></label>
+      </div>
+      <p class="small mt-4 mb-0 static-note">This is a static preview — search and live data updates are disabled.</p>
+    </div>
+  </aside>
+  <label for="offcanvasToggle" class="offcanvas-backdrop"></label>
+
+  <div class="container py-4 py-md-5" style="max-width:1100px;">
+    <header class="mb-4">
+      <nav class="d-flex align-items-center justify-content-between gap-3" aria-label="Main Navigation">
+        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+          <div class="brand-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+          </div>
+          <h1 class="fw-semibold fs-5 d-none d-sm-block mb-0">HB</h1>
+        </div>
+
+        <div class="flex-grow-1 position-relative search-wrap" style="max-width:380px;">
+          <div class="input-group">
+            <span class="input-group-text border-end-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+            </span>
+            <input type="search" class="form-control border-start-0 ps-1" placeholder="Search city..."
+              title="Search is disabled in this static preview" id="search-weather">
+          </div>
+        </div>
+
+        <div class="d-none d-sm-flex align-items-center gap-2">
+          <label for="darkToggle" class="btn btn-outline-secondary btn-icon icon-btn" title="Toggle theme">
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+            </svg>
+          </label>
+          <div class="position-relative">
+            <label for="settingsToggle" class="btn btn-outline-primary rounded-pill px-3">Settings</label>
+            <label for="settingsToggle" class="settings-backdrop"></label>
+            <div class="card settings-popover position-absolute end-0 mt-2 p-3">
+              <p class="fw-semibold small mb-3 eyebrow">Settings</p>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold mb-2">Temperature Unit</label>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="small unit-label-c">°C</span>
+                  <label class="css-switch mb-0" for="unitToggle"><span class="css-switch-track"></span></label>
+                  <span class="small unit-label-f">°F</span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold mb-2">Time Format</label>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="small time-label-12">12h</span>
+                  <label class="css-switch mb-0" for="timeToggle"><span class="css-switch-track"></span></label>
+                  <span class="small time-label-24">24h</span>
+                </div>
+              </div>
+              <div>
+                <label class="form-label small fw-semibold mb-2">Dark Mode</label>
+                <label class="css-switch mb-0" for="darkToggle"><span class="css-switch-track"></span></label>
+              </div>
+              <p class="small mt-4 mb-0 static-note">This is a static preview — search and live data updates are
+                disabled.</p>
+            </div>
+          </div>
+        </div>
+
+        <label for="offcanvasToggle" class="btn btn-outline-secondary d-sm-none btn-icon icon-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12h16M4 6h16M4 18h16" />
+          </svg>
+        </label>
+      </nav>
+    </header>
+
+    <main class="weather-container">
+      <section class="card hero-card mb-4 fade-in-up" aria-label="Current Weather Conditions">
+        <div class="hero-icon-bg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v2M4.22 4.22l1.42 1.42M1 12h2M18.36 5.64l1.42-1.42" />
+            <path d="M20.5 17.5A4.5 4.5 0 0 0 18 9h-1.26A8 8 0 1 0 4 16.25" />
+            <path d="M13 22H7a4 4 0 0 1 0-8 5 5 0 0 1 9.8-1.5" />
+          </svg>
+        </div>
+        <div class="card-body p-4 p-sm-5">
+          <div
+            class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-4">
+            <div>
+              <div class="d-flex align-items-center gap-1 mb-3 location-line">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span class="small fw-medium" id="country">London, United Kingdom</span>
+              </div>
+              <div class="d-flex align-items-end gap-4">
+                <span class="temp-display">26°c</span>
+                <div class="pb-2">
+                  <p class="fs-4 fw-semibold mb-1" id="weather-status">Partly cloudy</p>
+                  <p class="small mb-0 feels-like">Feels like 25°</p>
+                </div>
+              </div>
+            </div>
+            <div class="text-sm-end">
+              <p class="mb-0 fs-6">
+                <span class="me-1 hl-label">H:</span>
+                <span class="fw-semibold me-3" id="temp-max">27°</span>
+                <span class="me-1 hl-label">L:</span>
+                <span class="fw-semibold" id="temp-min">14°</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="row g-3 mb-4 fade-in-up d1" aria-label="Weather Statistics">
+        <div class="col-6 col-md-2">
+          <div class="card stat-card h-100">
+            <div class="card-body d-flex flex-column align-items-center text-center p-3 gap-1">
+              <span class="stat-icon mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path
+                    d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.09 3 12.25c0 2.22 1.8 4.05 4 4.05z" />
+                  <path
+                    d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97" />
+                </svg></span>
+              <span class="stat-label">Humidity</span>
+              <span class="stat-value" id="humidity">30%</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="card stat-card h-100">
+            <div class="card-body d-flex flex-column align-items-center text-center p-3 gap-1">
+              <span class="stat-icon mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M12.8 19.6A2 2 0 1 0 14 16H2" />
+                  <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" />
+                  <path d="M9.8 4.4A2 2 0 1 1 11 8H2" />
+                </svg></span>
+              <span class="stat-label">Wind</span>
+              <span class="stat-value" id="wind">7.6 km/h</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="card stat-card h-100">
+            <div class="card-body d-flex flex-column align-items-center text-center p-3 gap-1">
+              <span class="stat-icon mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="4" />
+                  <path
+                    d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                </svg></span>
+              <span class="stat-label">UV Index</span>
+              <span class="stat-value" id="uv-index">2.8</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="card stat-card h-100">
+            <div class="card-body d-flex flex-column align-items-center text-center p-3 gap-1">
+              <span class="stat-icon mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path
+                    d="M2.06 12.06C3.7 7.5 7.5 4.5 12 4.5s8.3 3 9.94 7.56a1 1 0 0 1 0 .88C20.3 17.5 16.5 20.5 12 20.5s-8.3-3-9.94-7.56a1 1 0 0 1 0-.88Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg></span>
+              <span class="stat-label">Visibility</span>
+              <span class="stat-value" id="visibility">26.8 km</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="card stat-card h-100">
+            <div class="card-body d-flex flex-column align-items-center text-center p-3 gap-1">
+              <span class="stat-icon mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="m12 14 4-4" />
+                  <path d="M3.34 19a10 10 0 1 1 17.32 0" />
+                </svg></span>
+              <span class="stat-label">Pressure</span>
+              <span class="stat-value" id="pressure">1025.0 hPa</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="card stat-card h-100">
+            <div class="card-body d-flex flex-column align-items-center text-center p-3 gap-1">
+              <span class="stat-icon mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" />
+                </svg></span>
+              <span class="stat-label">Dew Point</span>
+              <span class="stat-value" id="dew-point">7°</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <section class="mb-4 fade-in-up d2">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h2 class="fs-6 fw-semibold mb-0">Next 24 Hours</h2>
+              <div class="hourly-nav d-flex gap-2">
+                <button class="hourly-nav-btn" id="hourlyPrev" aria-label="Previous hours">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                </button>
+                <button class="hourly-nav-btn" id="hourlyNext" aria-label="Next hours">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="hourly-scroll-wrap">
+              <div class="hourly-scroll" id="next24hours"></div>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="col-lg-6">
+          <section class="mb-4 fade-in-up d2">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h2 class="fs-6 fw-semibold mb-0">7-Day Forecast</h2>
+              <div class="hourly-nav d-flex gap-2">
+                <button class="hourly-nav-btn" id="dailyPrev" aria-label="Previous days">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                </button>
+                <button class="hourly-nav-btn" id="dailyNext" aria-label="Next days">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="hourly-scroll-wrap">
+              <div class="hourly-scroll" id="dailyForecast"></div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="mt-5 py-4 border-top text-center text-muted small">
+      <p class="mb-0">&copy; 2026 HB. Powered by Open-Weather.</p>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const darkToggle = document.getElementById('darkToggle');
+      const currentTheme = document.documentElement.getAttribute('data-theme-mode');
+
+      if (darkToggle) {
+        darkToggle.checked = (currentTheme === 'dark');
+
+        darkToggle.addEventListener('change', (e) => {
+          const theme = e.target.checked ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme-mode', theme);
+          localStorage.setItem('theme', theme);
+        });
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="./script/index.js"></script>
+
+</body>
+
+</html>
