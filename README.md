@@ -132,6 +132,20 @@ This allows the application to load weather information immediately without requ
 
 ---
 
+## 📋 Third-Party Services
+
+This project integrates the following external services:
+
+| Service | Purpose |
+|---------|---------|
+| **OpenWeather API** | Provides current weather, hourly forecast, and 7-day forecast data. |
+| **IPInfo API** | Detects the user's approximate location based on their IP address for automatic weather lookup. |
+
+> **Note:** These services are provided by third parties and are governed by their own terms of service and licensing. They are **not covered** by this project's MIT License.
+
+---
+
+
 ## 🚀 Installation
 
 Clone the repository
