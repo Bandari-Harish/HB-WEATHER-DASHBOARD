@@ -1,6 +1,6 @@
 # 🌦️ HB Weather Dashboard
 
-A modern, responsive weather dashboard built with **HTML5, SCSS, Bootstrap 5, and Vanilla JavaScript**. It provides real-time weather conditions, hourly forecasts, and a 7-day weather forecast for cities worldwide using the OpenWeather API.
+A modern, responsive weather dashboard built with **HTML, SCSS, Bootstrap , and  JavaScript**. It provides real-time weather conditions, hourly forecasts, and a 7-day weather forecast for cities worldwide using the OpenWeather API.
 
 > Designed with a clean UI, dark/light theme support, automatic location detection, and responsive layouts for desktop and mobile devices.
 
