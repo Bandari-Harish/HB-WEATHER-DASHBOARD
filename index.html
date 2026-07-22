@@ -2,14 +2,7 @@
 <html lang="en" data-theme-mode="dark">
 
 <head>
-  <script>
-    (function () {
-      const savedTheme = localStorage.getItem('theme');
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme-mode', theme);
-    })();
-  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
   <title>HB Weather Dashboard</title>
@@ -25,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="./assets/css/index.css">
 </head>
 
@@ -63,8 +56,9 @@
         <label class="form-label small fw-semibold mb-2">Dark Mode</label>
         <label class="css-switch mb-0" for="darkToggle"><span class="css-switch-track"></span></label>
       </div>
-      <p class="small mt-4 mb-0 static-note">This is a static preview — search and live data updates are disabled.</p>
-    </div>
+      <div class="mt-4">
+        <button class="btn btn-sm btn-outline-danger w-50 reset-settings-btn">Reset</button>
+      </div>
   </aside>
   <label for="offcanvasToggle" class="offcanvas-backdrop"></label>
 
@@ -80,7 +74,10 @@
                 d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
             </svg>
           </div>
-          <h1 class="fw-semibold fs-5 d-none d-sm-block mb-0">HB</h1>
+          <h1 class="fw-bold fs-5 d-none d-sm-block mb-0">
+            <span class="text-primary">HB</span> Weather
+          </h1>
+
         </div>
 
         <div class="flex-grow-1 position-relative search-wrap" style="max-width:380px;">
@@ -113,7 +110,7 @@
           <div class="position-relative">
             <label for="settingsToggle" class="btn btn-outline-primary rounded-pill px-3">Settings</label>
             <label for="settingsToggle" class="settings-backdrop"></label>
-            <div class="card settings-popover position-absolute end-0 mt-2 p-3">
+            <div class="card settings-popover  position-absolute end-0 mt-2 p-3">
               <p class="fw-semibold small mb-3 eyebrow">Settings</p>
               <div class="mb-3">
                 <label class="form-label small fw-semibold mb-2">Temperature Unit</label>
@@ -135,8 +132,9 @@
                 <label class="form-label small fw-semibold mb-2">Dark Mode</label>
                 <label class="css-switch mb-0" for="darkToggle"><span class="css-switch-track"></span></label>
               </div>
-              <p class="small mt-4 mb-0 static-note">This is a static preview — search and live data updates are
-                disabled.</p>
+              <div class="mt-4">
+                <button class="btn btn-sm btn-outline-danger  w-50 reset-settings-btn">Reset</button>
+              </div>
             </div>
           </div>
         </div>
@@ -338,32 +336,57 @@
       </div>
 
     </main>
+    <footer class="mt-4 py-4 border-top fade-in-up" style="animation-delay: 0.2s;">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
+        
+        <!-- Brand & Tech Badge -->
+        <div class="d-flex flex-column flex-sm-row align-items-center gap-3">
+          <div class="d-flex align-items-center gap-2">
+            <div class="brand-icon opacity-75" style="width: 28px; height: 28px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+              </svg>
+            </div>
+            <h3 class="h6 fw-bold mb-0 text-body">HB Weather</h3>
+          </div>
+          <span class="d-none d-sm-inline opacity-50 text-muted">•</span>
+          <div class="d-flex align-items-center gap-2">
+            <span class="small text-muted mb-0">Powered by <span class="text-primary fw-semibold">Open-Weather</span></span>
+          </div>
+        </div>
 
-    <footer class="mt-5 py-4 border-top text-center text-muted small">
-      <p class="mb-0">&copy; 2026 HB. Powered by Open-Weather.</p>
+        <!-- Social Links & Copyright -->
+        <div class="d-flex flex-column flex-sm-row align-items-center gap-4">
+          <div class="d-flex gap-3">
+            <a href="https://github.com/yourusername/HB_WEATHER_DASHBOARD" target="_blank" rel="noopener noreferrer" class="text-muted text-decoration-none hover-opacity" aria-label="GitHub">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                <path d="M9 18c-4.51 2-5-2-7-2"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/your-linkedin-profile/" target="_blank" rel="noopener noreferrer" class="text-muted text-decoration-none hover-opacity" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect width="4" height="12" x="2" y="9"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+          </div>
+          <p class="small text-muted mb-0">&copy; 2026. All rights reserved.</p>
+        </div>
+        
+      </div>
     </footer>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const darkToggle = document.getElementById('darkToggle');
-      const currentTheme = document.documentElement.getAttribute('data-theme-mode');
-
-      if (darkToggle) {
-        darkToggle.checked = (currentTheme === 'dark');
-
-        darkToggle.addEventListener('change', (e) => {
-          const theme = e.target.checked ? 'dark' : 'light';
-          document.documentElement.setAttribute('data-theme-mode', theme);
-          localStorage.setItem('theme', theme);
-        });
-      }
-    });
-  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="./script/theme.js"></script>
   <script type="module" src="./script/index.js"></script>
+
 
 </body>
 
