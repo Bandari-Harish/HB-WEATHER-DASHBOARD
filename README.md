@@ -147,6 +147,14 @@ This project integrates the following external services:
 ---
 
 
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (which includes npm) - required for compiling SCSS.
+- A modern web browser.
+
+---
+
 ## 🚀 Installation
 
 Clone the repository
@@ -167,19 +175,16 @@ Install dependencies
 npm install
 ```
 
-Run locally
+Compile SCSS to CSS
 
 ```bash
-npm run dev
+npm run sass
 ```
+*(Use `npm run sass:watch` during development to auto-compile changes)*
 
-or simply open
+Run locally
 
-```
-index.html
-```
-
-using a local development server like VS Code Live Server.
+Open `index.html` using a local development server like VS Code Live Server, or your browser.
 
 ---
 

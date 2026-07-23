@@ -52,7 +52,6 @@ export async function searchWeather(city) {
         units: getTemperatureUints(),
       },
     });
-    console.log(data);
 
     updateWeatherUI(data);
   } catch (error) {
